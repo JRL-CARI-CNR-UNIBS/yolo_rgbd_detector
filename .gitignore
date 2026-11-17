@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# colcon / ament
+build/
+install/
+log/
+
+# YOLO weights and runs
+*.pt
+*.onnx
+*.engine
+runs/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store

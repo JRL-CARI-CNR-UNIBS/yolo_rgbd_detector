@@ -1,0 +1,31 @@
+# Parameters of yolo_rgbd_detector. See docs/API.md for details.
+yolo_rgbd_detector:
+  ros__parameters:
+    # --- Model ---------------------------------------------------------------
+    # Ultralytics weights: a name (downloaded on first use) or a path to a .pt file.
+    # A segmentation model (*-seg.pt) gives masks: better points, centroid and color.
+    model: "yolo11n-seg.pt"
+    device: ""                  # "" = auto, "cpu", "cuda:0", ...
+    confidence_threshold: 0.5   # default min score (requests can override)
+    iou_threshold: 0.45
+    image_size: 640
+    # Default class filter (requests can override). Leave commented for all classes.
+    # classes: ["cup", "bowl", "bottle"]
+
+    # --- 3D ------------------------------------------------------------------
+    use_mask: true              # use segmentation masks when the model provides them
+    roi_scale: 0.5              # without mask: use the central 50% of the box
+    min_depth: 0.1              # [m] discard points closer than this (camera z)
+    max_depth: 10.0             # [m] discard points farther than this
+    depth_scale: 0.0            # meters per raw depth unit; 0 = auto (16UC1 -> 0.001)
+    min_depth_band: 0.03        # [m] minimum depth band around the median kept as object
+    min_points: 20              # minimum 3D points for a 3D box
+    exclude_occluders: true     # drop pixels of detections in front (e.g. a cup on a book)
+    box_mode: "yaw"             # "yaw" (rotated about z of the target frame) or "axis_aligned"
+
+    # --- Multi-view merge (request.merge_views) -------------------------------
+    merge_distance: 0.1         # [m] min distance gate between box centers
+    merge_size_factor: 0.5      # gate = max(merge_distance, factor * larger box side)
+
+    tf_timeout: 0.5             # [s]
+    publish_debug: true         # ~/debug_image and ~/markers after each call
