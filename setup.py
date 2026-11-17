@@ -36,7 +36,7 @@ setup(
     maintainer_email='manuel.beschi@unibs.it',
     description='YOLO object detection on RGB-D images with 3D centroids.',
     license='Apache-2.0',
-    tests_require=['pytest'],
+    extras_require={'test': ['pytest']},
     entry_points={
         'console_scripts': [
             'detector_node = yolo_rgbd_detector.detector_node:main',
